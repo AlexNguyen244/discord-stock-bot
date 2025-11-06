@@ -309,9 +309,8 @@ client.on("messageCreate", async (message) => {
       // Fetch recent message history from Discord (last 100 messages)
       const messageHistory = await fetchRecentMessages(message.channel, 100);
 
-      // Build stock data context for AI
-      const stockDataContext = await buildStockDataContext(textWithoutMention);
-      const aiResponse = await respondToChat(textWithoutMention, message.author.username, message.author.id, stockDataContext, messageHistory);
+      // Call AI without stock data context (it will use chat history only)
+      const aiResponse = await respondToChat(textWithoutMention, message.author.username, message.author.id, messageHistory);
       stopTyping();
       if (aiResponse) {
         message.channel.sendTyping();
